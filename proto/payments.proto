@@ -1,0 +1,31 @@
+syntax = "proto3";
+
+import "google/protobuf/empty.proto";
+
+package payments;
+
+service Bitcoin {
+    rpc InitAccount (InitAccountRequest) returns (Reply);
+    rpc SendPayment (PaymentRequest) returns (Reply);
+    rpc SendHints   (HintsRequest) returns (google.protobuf.Empty);
+}
+
+message PaymentRequest {
+    string from_addr = 1;
+    string to_addr   = 2;
+    uint32 amount    = 3;
+}
+
+message InitAccountRequest {
+    string addr = 1;
+    optional uint32 init_amount = 2;
+}
+
+message HintsRequest {
+    repeated string hints = 1;
+}
+
+message Reply {
+    bool successful = 1;
+    string message  = 2;
+}
